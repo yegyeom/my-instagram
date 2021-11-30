@@ -1,0 +1,118 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+html {
+  background-color: #fafafa;
+}
+
+.container {
+  width: 100%;
+  height: fit-content;
+  padding: 40px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  background-color: #fafafa;
+}
+
+.page {
+  position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+  width: 935px;
+  height: fit-content;
+  text-align: center;
+}
+
+.main-layout {
+  display: inline-flex;
+  padding: 0px 80px;
+  width: 100%;
+}
+
+.main-img {
+  width: fit-content;
+}
+
+.main-form {
+  width: 100%;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.intro {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-size: 15px;
+  color: #7F7F7F;
+}
+
+.logo-img {
+  width: 175px;
+}
+
+.sign-in {
+  width: 90%;
+  height: fit-content;
+  display: inline-block;
+  padding: 30px 0px;
+  background-color: #ffffff;
+  border: 1px solid #dbdbdb;
+}
+
+.sign-in input {
+  width: 260px;
+  height: 20px;
+  padding: 9px 0px 7px 8px;
+  background-color: #fafafa;
+  border: 1px solid #dbdbdb;
+  text-overflow: ellipsis;
+  border-radius: 4px;
+  margin: 5px 0px;
+}
+
+.sign-in button {
+  width: 270px;
+  height: 35px;
+  padding: none;
+  margin-top: 10px;
+  border-radius: 4px;
+  border: none;
+}
+
+.sign-in button.off {
+  background-color: #B2DFFC;
+  color: white;
+}
+
+.sign-in button.on {
+  background-color: #0195F6;
+  color: white;
+}
+
+.join {
+  width: 90%;
+  height: fit-content;
+  display: inline-block;
+  margin-top: 10px;
+  padding: 20px 0px;
+  background-color: #ffffff;
+  border: 1px solid #dbdbdb;
+  font-size: 15px;
+  text-align: center;
+}
+
+.join a {
+  color: #0095f6;
+  text-decoration: none;
+}
+
+.join a:hover {
+  text-decoration: underline 1.5px;
+  text-underline-position: under;
+}
+
+/*# sourceMappingURL=main.css.map */
