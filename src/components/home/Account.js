@@ -1,29 +1,49 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "../../styles/css/main.css";
 import cap_main2 from "../../styles/images/cap_main2.JPG";
 import instagram_logo from "../../styles/images/instagram_logo.svg";
 
 const Index = () => {
-  const [email, setEmail] = useState(0);
-  const [name, setName] = useState(0);
-  const [nick, setNick] = useState(0);
-  const [password, setPassword] = useState(0);
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleChangeEmail = (e) => {
-    setEmail(e.target.value.length);
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
   };
-  const handleChangeName = (e) => {
-    setName(e.target.value.length);
+  const handleNameChange = (e) => {
+    setName(e.target.value);
   };
-  const handleChangeNick = (e) => {
-    setNick(e.target.value.length);
+  const handleUserIdChange = (e) => {
+    setUserId(e.target.value);
   };
-  const handleChangePassword = (e) => {
-    setPassword(e.target.value.length);
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
-  const handleClick = () => {
+  const handleComplete = () => {
     console.log("가입 버튼 클릭");
+    axios
+      .post("/api/auth/account", {
+        email,
+        name,
+        userId,
+        password,
+      })
+      .then((res) => {
+        const { code } = res.data;
+
+        if (code === 400) {
+          // setOverlap(true);
+        } else if (code === 200) {
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -40,28 +60,28 @@ const Index = () => {
           <div>
             <form id="join-form" action="/auth/join" method="post">
               <input
-                onChange={handleChangeEmail}
+                onChange={handleEmailChange}
                 id="join-email"
                 type="email"
                 name="email"
                 placeholder="이메일 주소"
               />
               <input
-                onChange={handleChangeName}
+                onChange={handleNameChange}
                 id="join-name"
                 type="text"
                 name="name"
                 placeholder="성명"
               />
               <input
-                onChange={handleChangeNick}
-                id="join-nick"
+                onChange={handleUserIdChange}
+                id="join-userId"
                 type="text"
-                name="nick"
+                name="userId"
                 placeholder="사용자 이름"
               />
               <input
-                onChange={handleChangePassword}
+                onChange={handlePasswordChange}
                 id="join-password"
                 type="password"
                 name="password"
@@ -72,11 +92,19 @@ const Index = () => {
             <button
               type="submit"
               className={
-                email > 0 && name > 0 && nick > 0 && password > 0 ? "on" : "off"
+                email.length > 0 &&
+                name.length > 0 &&
+                userId.length > 0 &&
+                password.length > 0
+                  ? "on"
+                  : "off"
               }
               onClick={
-                email > 0 && name > 0 && nick > 0 && password > 0
-                  ? handleClick
+                email.length > 0 &&
+                name.length > 0 &&
+                userId.length > 0 &&
+                password.length > 0
+                  ? handleComplete
                   : null
               }
             >

@@ -1,23 +1,41 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { NavLink } from "react-router-dom";
 import "../../styles/css/main.css";
 import cap_main1 from "../../styles/images/cap_main1.JPG";
 import instagram_logo from "../../styles/images/instagram_logo.svg";
 
 const Index = () => {
-  const [nick, setNick] = useState(0);
-  const [password, setPassword] = useState(0);
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleChangeNick = (e) => {
-    setNick(e.target.value.length);
+  const handleUserIdChange = (e) => {
+    setUserId(e.target.value);
   };
 
-  const handleChangePassword = (e) => {
-    setPassword(e.target.value.length);
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
-  const handleClick = () => {
+  const handleComplete = () => {
     console.log("로그인 버튼 클릭");
+    axios
+      .post("/api/auth/login", {
+        userId,
+        password,
+      })
+      .then((res) => {
+        const { code } = res.data;
+
+        if (code === 400) {
+          // setOverlap(true);
+        } else if (code === 200) {
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -32,16 +50,16 @@ const Index = () => {
             <div>친구들의 사진과 동영상을 보려면 로그인하세요.</div>
           </div>
           <div>
-            <form id="join-form" action="/auth/login" method="post">
+            <form>
               <input
-                onChange={handleChangeNick}
-                id="nick"
+                onChange={handleUserIdChange}
+                id="userId"
                 type="text"
-                name="nick"
+                name="userId"
                 placeholder="ID (사용자 이름)"
               />
               <input
-                onChange={handleChangePassword}
+                onChange={handlePasswordChange}
                 id="password"
                 type="password"
                 name="password"
@@ -52,8 +70,12 @@ const Index = () => {
             <button
               id="login"
               type="submit"
-              className={nick > 0 && password > 0 ? "on" : "off"}
-              onClick={nick > 0 && password > 0 ? handleClick : null}
+              className={
+                userId.length > 0 && password.length > 0 ? "on" : "off"
+              }
+              onClick={
+                userId.length > 0 && password.length > 0 ? handleComplete : null
+              }
             >
               로그인
             </button>
