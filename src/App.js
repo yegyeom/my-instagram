@@ -5,9 +5,7 @@ import Page from "./components/Page";
 function App() {
   return (
     <div className="container">
-      <div className="page">
-        <Page />
-      </div>
+      <Page />
     </div>
   );
 }
