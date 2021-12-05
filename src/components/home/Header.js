@@ -30,9 +30,10 @@ const Header = () => {
     const handleClick = () => {
         console.log('logout');
         axios
-            .post("http://web.expertly.info:8012/api/auth/logout", {
+            .get("http://web.expertly.info:8012/api/auth/logout", {
             })
             .then((res) => {
+                console.log('로그아웃 성공!');
                 navigate("/");
             })
             .catch((error) => {
