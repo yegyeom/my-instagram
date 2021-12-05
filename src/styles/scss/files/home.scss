@@ -1,0 +1,56 @@
+.home-layout {
+  text-align: center;
+}
+
+.header {
+  width: 100vw;
+  height: 53px;
+  background-color: white;
+  border-bottom: 1.5px solid #dbdbdb;
+  text-align: center;
+}
+
+.header-layout {
+  width: 935px;
+  align-items: center;
+  position: relative;
+  display: inline-flex;
+  justify-content: space-between;
+}
+
+.header .logo-img {
+  width: 150px;
+  height: 90%;
+}
+
+.header-icons {
+  width: 30%;
+  text-align: right;
+}
+
+.header-icon {
+  width: 28px;
+  height: 28px;
+  margin: 0px 8px;
+  cursor: pointer;
+}
+
+.header-radio {
+  width: 50%;
+  font-size: 12px;
+}
+
+.header-radio input,
+.header-radio label {
+  cursor: pointer;
+}
+
+.header-search {
+  width: 45%;
+  border: 2px solid #dbdbdb;
+  padding: 8px 10px;
+  margin-left: 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  outline: none;
+}
