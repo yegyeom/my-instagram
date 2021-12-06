@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../../styles/css/main.css";
 import cap_main1 from "../../styles/images/cap_main1.JPG";
 import instagram_logo from "../../styles/images/instagram_logo.svg";
+import UserContext from "../../contexts/users";
 
 const Main = () => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [warningText, setWarningText] = useState("");
+  const { setUser } = useContext(UserContext).actions;
 
   const handleUserIdChange = (e) => {
     setUserId(e.target.value);
@@ -33,6 +35,7 @@ const Main = () => {
 
         if (status === 200) {
           console.log("로그인 성공!");
+          setUser(res.data);
           navigate("/home");
         }
       })

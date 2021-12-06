@@ -1,12 +1,15 @@
 import "./App.css";
 import "./styles/css/main.css";
 import Page from "./components/Page";
+import { UserProvider } from "./contexts/users";
 
 function App() {
   return (
-    <div className="container">
-      <Page />
-    </div>
+    <UserProvider value={{}}>
+      <div className="container">
+        <Page />
+      </div>
+    </UserProvider>
   );
 }
 
