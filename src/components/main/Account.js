@@ -33,7 +33,7 @@ const Index = () => {
         name,
         userId,
         password,
-      })
+      }, { withCredentials: true })
       .then((res) => {
         const { status } = res;
         if (status === 200) {
@@ -48,7 +48,7 @@ const Index = () => {
   };
 
   return (
-    <div className="page">
+    <div className="main-page">
       <div className="main-layout">
         <div className="main-img">
           <img src={cap_main2} alt="main-img" />
@@ -64,14 +64,14 @@ const Index = () => {
                 <input
                   className="input-text"
                   onChange={handleEmailChange}
-                  id="join-email"
+                  id="email"
                   type="email"
                   name="email"
                   placeholder="이메일 주소"
                 />
                 <input
                   onChange={handleNameChange}
-                  id="join-name"
+                  id="name"
                   type="text"
                   name="name"
                   placeholder="성명"
@@ -79,14 +79,14 @@ const Index = () => {
                 <input
                   className="input-text"
                   onChange={handleUserIdChange}
-                  id="join-userId"
+                  id="userId"
                   type="text"
                   name="userId"
                   placeholder="사용자 이름"
                 />
                 <input
                   onChange={handlePasswordChange}
-                  id="join-password"
+                  id="password"
                   type="password"
                   name="password"
                   placeholder="비밀번호"

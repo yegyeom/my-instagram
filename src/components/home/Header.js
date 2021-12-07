@@ -9,9 +9,12 @@ import msg from '../../styles/images/msg.png';
 import logout from '../../styles/images/logout.png';
 import axios from 'axios';
 import { useNavigate } from "react-router";
+import { useContext } from 'react';
+import UserContext from '../../contexts/users';
 
 const Header = () => {
     const navigate = useNavigate();
+    const { setUser, setAuthenticated } = useContext(UserContext).actions;
 
     const navItems = [
         { path: '/home', img: home, title: '홈' },
@@ -30,10 +33,12 @@ const Header = () => {
     const handleClick = () => {
         console.log('logout');
         axios
-            .get("http://web.expertly.info:8012/api/auth/logout", {
-            })
+            .post("http://web.expertly.info:8012/api/auth/logout", {
+            }, { withCredentials: true })
             .then((res) => {
                 console.log('로그아웃 성공!');
+                setUser({});
+                setAuthenticated(false);
                 navigate("/");
             })
             .catch((error) => {

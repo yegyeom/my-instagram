@@ -11,7 +11,7 @@ const Main = () => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [warningText, setWarningText] = useState("");
-  const { setUser } = useContext(UserContext).actions;
+  const { setUser, setAuthenticated } = useContext(UserContext).actions;
 
   const handleUserIdChange = (e) => {
     setUserId(e.target.value);
@@ -28,7 +28,7 @@ const Main = () => {
       .post("http://web.expertly.info:8012/api/auth/login", {
         userId,
         password,
-      })
+      }, { withCredentials: true })
       .then((res) => {
         const { status } = res;
         console.log(status);
@@ -36,6 +36,7 @@ const Main = () => {
         if (status === 200) {
           console.log("로그인 성공!");
           setUser(res.data);
+          if (res.data !== null) setAuthenticated(true);
           navigate("/home");
         }
       })
@@ -56,7 +57,7 @@ const Main = () => {
   }
 
   return (
-    <div className="page">
+    <div className="main-page">
       <div className="main-layout">
         <div className="main-img">
           <img src={cap_main1} alt="main-img" />
