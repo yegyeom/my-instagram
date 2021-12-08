@@ -11,7 +11,7 @@ const Main = () => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [warningText, setWarningText] = useState("");
-  const { setUser, setAuthenticated } = useContext(UserContext).actions;
+  const { setUserid, setId } = useContext(UserContext).actions;
 
   const handleUserIdChange = (e) => {
     setUserId(e.target.value);
@@ -31,12 +31,15 @@ const Main = () => {
       }, { withCredentials: true })
       .then((res) => {
         const { status } = res;
-        console.log(status);
 
         if (status === 200) {
           console.log("로그인 성공!");
-          setUser(res.data);
-          if (res.data !== null) setAuthenticated(true);
+
+          sessionStorage.setItem('id', res.data.id);
+          sessionStorage.setItem('userId', res.data.userId);
+          setId(res.data.id);
+          setUserid(res.data.userId);
+
           navigate("/home");
         }
       })

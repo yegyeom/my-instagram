@@ -14,7 +14,7 @@ import UserContext from '../../contexts/users';
 
 const Header = () => {
     const navigate = useNavigate();
-    const { setUser, setAuthenticated } = useContext(UserContext).actions;
+    const { setUserid } = useContext(UserContext).actions;
 
     const navItems = [
         { path: '/home', img: home, title: '홈' },
@@ -37,8 +37,9 @@ const Header = () => {
             }, { withCredentials: true })
             .then((res) => {
                 console.log('로그아웃 성공!');
-                setUser({});
-                setAuthenticated(false);
+                setUserid("");
+                sessionStorage.clear();
+
                 navigate("/");
             })
             .catch((error) => {

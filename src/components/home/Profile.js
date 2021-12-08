@@ -5,14 +5,16 @@ import UserContext from "../../contexts/users";
 import { getTodayDateString } from '../../utils/date'
 
 const Profile = () => {
-    const { user } = useContext(UserContext).state;
+    const { userId } = useContext(UserContext).state;
 
     return (
         <div className="home-layout">
             <Header />
             <div className="page">
-                <span>{user.userId}</span>
-                <span>{getTodayDateString()}</span>
+                <div className="follow-layout">
+                    <div>아이디: {userId}</div>
+                    <div>{getTodayDateString()}</div>
+                </div>
             </div>
         </div>
     )

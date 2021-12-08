@@ -7,8 +7,16 @@ import New from './home/New'
 import Profile from './home/Profile'
 import Follow from "./home/Follow";
 import Msg from "./home/Msg";
+import { useContext, useEffect } from "react";
+import UserContext from "../contexts/users";
 
 const Page = () => {
+  const { setUserid, setId } = useContext(UserContext).actions;
+  useEffect(() => {
+    setId(sessionStorage.getItem('id'));
+    setUserid(sessionStorage.getItem('userId'));
+  }, [setId, setUserid]);
+
   return (
     <>
       <BrowserRouter>

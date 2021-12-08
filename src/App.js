@@ -5,7 +5,7 @@ import { UserProvider } from "./contexts/users";
 
 function App() {
   return (
-    <UserProvider value={{}}>
+    <UserProvider>
       <div className="container">
         <Page />
       </div>
