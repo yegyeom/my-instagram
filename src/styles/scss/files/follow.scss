@@ -1,0 +1,52 @@
+.follow-layout {
+  margin: 40px 30px 0px 30px;
+  padding: 20px 0px;
+  background-color: #ffffff;
+  border: 1.5px solid #dbdbdb;
+}
+
+.user-list {
+  width: 90%;
+  display: inline-flex;
+  padding: 10px;
+  justify-content: space-between;
+  //   margin: 0 auto;
+}
+
+.user-info {
+  display: inline-block;
+  align-items: center;
+}
+
+.user-info span:first-child {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.user-info span:last-child {
+  color: #413f3f;
+}
+
+.user-list button {
+  padding: 7px 15px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.user-follow-button {
+  background-color: #0195f6;
+  color: white;
+  border: 1.5px solid #0195f6;
+}
+
+.user-following-button {
+  background-color: white;
+  color: black;
+  border: 1.5px solid #dbdbdb;
+}
+
+.follow-layout hr {
+  width: 90%;
+  border: 0;
+  height: 1px;
+  background: #ccc;
+}
