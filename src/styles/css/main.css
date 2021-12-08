@@ -20,11 +20,20 @@ body {
   background-color: #fafafa;
 }
 
-.page {
+.main-page {
   position: relative;
   display: inline-flex;
   box-sizing: border-box;
   flex-direction: row;
+  width: 935px;
+  height: fit-content;
+  text-align: center;
+}
+
+.page {
+  display: inline-flex;
+  box-sizing: border-box;
+  flex-direction: column;
   width: 935px;
   height: fit-content;
   text-align: center;
@@ -132,10 +141,10 @@ body {
 
 .header {
   width: 100vw;
-  height: 53px;
+  height: 60px;
   background-color: white;
   border-bottom: 1.5px solid #dbdbdb;
-  text-align: center;
+  display: flex;
 }
 
 .header-layout {
@@ -144,6 +153,7 @@ body {
   position: relative;
   display: inline-flex;
   justify-content: space-between;
+  margin: auto;
 }
 
 .header .logo-img {
@@ -182,6 +192,59 @@ body {
   border-radius: 20px;
   font-size: 14px;
   outline: none;
+}
+
+.follow-layout {
+  margin: 40px 30px 0px 30px;
+  padding: 20px 0px;
+  background-color: #ffffff;
+  border: 1.5px solid #dbdbdb;
+}
+
+.user-list {
+  width: 90%;
+  display: inline-flex;
+  padding: 10px;
+  justify-content: space-between;
+}
+
+.user-info {
+  display: inline-block;
+  align-items: center;
+}
+
+.user-info span:first-child {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.user-info span:last-child {
+  color: #413f3f;
+}
+
+.user-list button {
+  padding: 7px 15px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.user-follow-button {
+  background-color: #0195f6;
+  color: white;
+  border: 1.5px solid #0195f6;
+}
+
+.user-following-button {
+  background-color: white;
+  color: black;
+  border: 1.5px solid #dbdbdb;
+}
+
+.follow-layout hr {
+  width: 90%;
+  border: 0;
+  height: 1px;
+  background: #ccc;
 }
 
 /*# sourceMappingURL=main.css.map */

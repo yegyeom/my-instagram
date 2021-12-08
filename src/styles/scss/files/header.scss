@@ -4,10 +4,10 @@
 
 .header {
   width: 100vw;
-  height: 53px;
+  height: 60px;
   background-color: white;
   border-bottom: 1.5px solid #dbdbdb;
-  text-align: center;
+  display: flex;
 }
 
 .header-layout {
@@ -16,6 +16,7 @@
   position: relative;
   display: inline-flex;
   justify-content: space-between;
+  margin: auto;
 }
 
 .header .logo-img {

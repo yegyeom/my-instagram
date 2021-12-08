@@ -19,7 +19,7 @@ body {
   background-color: #fafafa;
 }
 
-.page {
+.main-page {
   position: relative;
   display: inline-flex;
   box-sizing: border-box;
@@ -27,6 +27,17 @@ body {
   width: 935px;
   height: fit-content;
   text-align: center;
+}
+
+.page {
+  // position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  width: 935px;
+  height: fit-content;
+  text-align: center;
+  // justify-content: center;
 }
 
 .main-layout {
