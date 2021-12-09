@@ -1,4 +1,3 @@
-import '../../styles/css/main.css'
 import { Link } from "react-router-dom";
 import instagram_logo from "../../styles/images/instagram_logo.svg";
 import home from '../../styles/images/home.png';

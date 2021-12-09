@@ -1,4 +1,3 @@
-import "../../styles/css/main.css";
 import Header from "./Header";
 
 const Msg = () => {

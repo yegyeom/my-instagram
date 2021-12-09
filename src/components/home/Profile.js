@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import "../../styles/css/main.css";
 import Header from "./Header";
 import UserContext from "../../contexts/users";
 import { getTodayDateString } from '../../utils/date'

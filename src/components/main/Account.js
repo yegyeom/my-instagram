@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import "../../styles/css/main.css";
 import cap_main2 from "../../styles/images/cap_main2.JPG";
 import instagram_logo from "../../styles/images/instagram_logo.svg";
 

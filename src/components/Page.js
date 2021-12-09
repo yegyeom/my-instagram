@@ -1,4 +1,3 @@
-import "../styles/css/main.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./main/Main";
 import Account from "./main/Account";
