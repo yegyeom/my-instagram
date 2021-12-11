@@ -3,6 +3,7 @@ import Main from "./main/Main";
 import Account from "./main/Account";
 import Home from "./home/Home";
 import New from './home/New'
+import Edit from "./home/Edit";
 import Profile from './home/Profile'
 import Follow from "./home/Follow";
 import Msg from "./home/Msg";
@@ -24,6 +25,7 @@ const Page = () => {
           <Route path="/account" element={<Account />} />
           <Route path="/home" element={<Home />} />
           <Route path="/new" element={<New />} />
+          <Route path="/edit" element={<Edit />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/follow" element={<Follow />} />
           <Route path="/msg" element={<Msg />} />
