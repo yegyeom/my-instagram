@@ -1,7 +1,7 @@
 import Header from "./Header";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { postImg, postPost } from "../../api/post";
+import { postImg, post } from "../../api/post";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation } from "swiper";
 
@@ -12,6 +12,7 @@ const New = () => {
     const [img, setImg] = useState([]);
     const [preview, setPreview] = useState([]);
     const [inputValue, setInputValue] = useState("");
+    const [content, setContent] = useState("");
     const formData = new FormData();
 
     const handleChange = (e) => {
@@ -21,26 +22,26 @@ const New = () => {
         setInputValue(files.length > 1 ? `${files.length}장의 사진이 선택되었습니다.` : value);
     }
 
-    const handleClick = () => {
+    const handleClick = async () => {
         console.log(img);
         for (let i = 0; i < img.length; i++) {
             formData.append('image', img[i]);
-            console.log(img[i]);
         }
 
-        return async () => {
-            try {
-                const res1 = await postImg(formData);
-                console.log(res1.data);
+        try {
+            const images = await postImg(formData);
+            const imagePaths = images.data.map((e) => e.path);
 
-                const res2 = await postPost();
-                console.log(res2);
-                console.log('업로드 성공!');
-                navigate('/home');
-            } catch (error) {
-                console.log(error);
-            }
+            await post({ content, imagePaths });
+            console.log('업로드 성공!');
+            navigate('/home');
+        } catch (error) {
+            console.log(error);
         }
+    }
+
+    const handleContentChange = (e) => {
+        setContent(e.target.value);
     }
 
     const previewList = preview.map((item, idx) =>
@@ -73,7 +74,7 @@ const New = () => {
                                 </Swiper>
                             </div>
                         ) : <div className="empty-img"></div>}
-                        <textarea type="text" className="post-content" placeholder="내용을 입력해보세요!" />
+                        <textarea type="text" className="post-content" value={content} onChange={handleContentChange} placeholder="내용을 입력해보세요!" />
                         <br />
                         <button className="post-button" onClick={handleClick}>게시</button>
                     </div>
