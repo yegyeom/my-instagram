@@ -26,8 +26,8 @@ const Home = () => {
     fetchPostList();
   }, []);
 
-  const handleEdit = (e) => {
-    navigate('/edit');
+  const handleClick = (e) => {
+    navigate('/edit', { state: e.target.value });
   }
 
   const postList = posts.map((item, idx) => { // 게시글 하나씩 돌면서
@@ -36,9 +36,16 @@ const Home = () => {
         <img alt="img" className="post-img" src={`http://web.expertly.info/~web12/${img.path}`} />
       </SwiperSlide>
     )
-
     const editDate = moment(item.createdAt).format('yyyy-MM-DD HH:mm:ss');
     const check = idx % 3 === 1 ? true : false;
+    const editContent = item.content.split(/(#[^\s]+)/g).map((v, idx) => {
+      if (v.match(/#[^\s]+/)) {
+        return (
+          <a href="home" key={idx}>{v}</a>
+        );
+      }
+      return v;
+    })
 
     return (
       <div className={check ? "post-layout-center" : "post-layout"} key={idx}>
@@ -54,11 +61,11 @@ const Home = () => {
         </div>
         <div className="post-text">
           <a href="home" target="_self">[{item.nick}]</a> &nbsp;
-          <span>{item.content}</span>
+          <span>{editContent}</span>
         </div>
         <div className="post-bottom">
           <span >{editDate}</span>
-          {item.UserId === parseInt(sessionStorage.getItem('id')) ? <button className="edit-button" value={item.UserId} onClick={handleEdit}>edit</button> : null}
+          {item.UserId === parseInt(sessionStorage.getItem('id')) ? <button className="edit-button" value={item.id} onClick={handleClick}>edit</button> : null}
         </div>
       </div>
     )
