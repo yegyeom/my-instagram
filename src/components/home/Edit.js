@@ -1,17 +1,19 @@
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import Header from "./Header";
 import { useEffect, useState } from 'react';
-import { getPosts } from '../../api/post';
+import { getPosts, modifyPostImg, modifyPost } from '../../api/post';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation } from "swiper";
 
 const Edit = () => {
     SwiperCore.use([Navigation])
+    const navigate = useNavigate();
     const { state } = useLocation();
     const postId = parseInt(state);
     const [img, setImg] = useState([]);
     const [inputValue, setInputValue] = useState("");
     const [content, setContent] = useState("");
+    const formData = new FormData();
 
     useEffect(() => {
         async function fetchPostInfo() {
@@ -19,39 +21,43 @@ const Edit = () => {
                 const res = await getPosts();
                 setContent(res.data[postId - 1].content);
                 setImg(res.data[postId - 1].Images.map(image => { return { ...image, origin: true } }));
-                // console.log(res.data[postId - 1].Images);
             } catch (error) {
                 console.log('정보 불러오기 실패');
                 console.log(error);
             }
         }
         fetchPostInfo();
-    }, []);
 
-    const handleChange = (e) => {
+    }, [postId]);
+
+    const handleImgChange = (e) => {
         const { files, value } = e.target;
         const newImg = img.slice();
         for (let i = 0; i < files.length; i++) newImg.push(files[i]);
         setImg(newImg);
-        setInputValue(newImg.length > 1 ? `${files.length}장의 사진이 선택되었습니다.` : value);
+        setInputValue(newImg.length > 1 ? `${newImg.length}장의 사진이 선택되었습니다.` : value);
     }
 
     const handleModifyButtonClick = async () => {
-        // console.log(img);
-        // for (let i = 0; i < img.length; i++) {
-        //     formData.append('image', img[i]);
-        // }
+        for (let i = 0; i < img.length; i++) {
+            formData.append('image', img[i]);
+        }
 
-        // try {
-        //     const images = await postImg(formData);
-        //     const imagePaths = images.data.map((e) => e.path);
+        try {
+            const images = await modifyPostImg(formData);
+            const newImagePaths = images.data.map((e) => e.path); // 새로운 이미지들 경로
 
-        //     await post({ content, imagePaths });
-        //     console.log('업로드 성공!');
-        //     navigate('/home');
-        // } catch (error) {
-        //     console.log(error);
-        // }
+            const remainImageId = [];
+            for (let i = 0; i < img.length; i++) {
+                if (img[i].origin) remainImageId.push(img[i].id)
+            }
+
+            await modifyPost({ postId, content, newImagePaths, remainImageId });
+            console.log('업로드 성공!');
+            navigate('/home');
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const handleContentChange = (e) => {
@@ -80,7 +86,7 @@ const Edit = () => {
                         <div className="upload-layout">
                             <input className="upload-name" value={inputValue} placeholder="첨부파일" />
                             <label htmlFor="file">파일찾기</label>
-                            <input type="file" id="file" onChange={handleChange} multiple />
+                            <input type="file" id="file" onChange={handleImgChange} multiple />
                         </div>
                         <div className="img-preview">
                             <Swiper
