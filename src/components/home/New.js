@@ -22,8 +22,7 @@ const New = () => {
         setInputValue(files.length > 1 ? `${files.length}장의 사진이 선택되었습니다.` : value);
     }
 
-    const handleClick = async () => {
-        console.log(img);
+    const handleButtonClick = async () => {
         for (let i = 0; i < img.length; i++) {
             formData.append('image', img[i]);
         }
@@ -74,9 +73,9 @@ const New = () => {
                                 </Swiper>
                             </div>
                         ) : <div className="empty-img"></div>}
-                        <textarea type="text" className="post-content" value={content} onChange={handleContentChange} placeholder="내용을 입력해보세요!" />
+                        <textarea type="text" className="post-content" defaultValue={content} onChange={handleContentChange} placeholder="내용을 입력해보세요!" />
                         <br />
-                        <button className="post-button" onClick={handleClick}>게시</button>
+                        <button className="post-button" onClick={handleButtonClick}>게시</button>
                     </div>
                 </div>
             </div>

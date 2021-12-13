@@ -15,7 +15,6 @@ const Home = () => {
     async function fetchPostList() {
       try {
         const res = await getPosts();
-        console.log(res.data);
         setPosts(res.data);
       } catch (error) {
         console.log('목록 불러오기 실패');
