@@ -1,29 +1,18 @@
-import Header from './Header';
-import { getPosts } from '../../api/post';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination } from "swiper";
 import { useNavigate } from 'react-router';
 import moment from 'moment';
 
-const Home = () => {
+const Post = (props) => {
+  const { pagePostList } = props;
   const navigate = useNavigate();
   SwiperCore.use([Pagination])
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    async function fetchPostList() {
-      try {
-        const res = await getPosts();
-        setPosts(res.data);
-      } catch (error) {
-        console.log('목록 불러오기 실패');
-        console.log(error);
-      }
-    }
-
-    fetchPostList();
-  }, []);
+    setPosts(pagePostList);
+  }, [pagePostList]);
 
   const handleClick = (e) => {
     navigate('/edit', { state: e.target.value });
@@ -73,16 +62,13 @@ const Home = () => {
 
   return (
     <>
-      <div className="home-layout">
-        <Header />
-        <div className="page">
-          <div className="posts-layout">
-            {postList}
-          </div>
+      <div className="page">
+        <div className="posts-layout">
+          {postList}
         </div>
       </div>
     </>
   )
 };
 
-export default Home;
+export default Post;

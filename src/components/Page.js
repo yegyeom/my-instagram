@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./main/Main";
 import Account from "./main/Account";
-import Home from "./home/Home";
+import Index from "./home/index"
 import New from './home/New'
 import Edit from "./home/Edit";
 import Profile from './home/Profile'
@@ -23,7 +23,7 @@ const Page = () => {
         <Routes>
           <Route path="/" element={<Main />} exact />
           <Route path="/account" element={<Account />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<Index />} />
           <Route path="/new" element={<New />} />
           <Route path="/edit" element={<Edit />} />
           <Route path="/profile" element={<Profile />} />
