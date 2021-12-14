@@ -5,13 +5,15 @@ import "./App.css";
 import "./styles/css/main.css";
 import Page from "./components/Page";
 import { UserProvider } from "./contexts/users";
-
+import { PostProvider } from "./contexts/post";
 function App() {
   return (
     <UserProvider>
-      <div className="container">
-        <Page />
-      </div>
+      <PostProvider>
+        <div className="container">
+          <Page />
+        </div>
+      </PostProvider>
     </UserProvider>
   );
 }
