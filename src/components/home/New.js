@@ -32,10 +32,9 @@ const New = () => {
             const imagePaths = images.data.map((e) => e.path);
 
             await post({ content, imagePaths });
-            console.log('업로드 성공!');
             navigate('/home');
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 

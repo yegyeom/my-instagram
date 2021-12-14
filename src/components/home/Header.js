@@ -17,7 +17,8 @@ const Header = () => {
     const navigate = useNavigate();
     const { setUserid } = useContext(UserContext).actions;
     const [searchWord, setSearchWord] = useState("");
-    const { setPost, setCurrentPage, setTotalLength } = useContext(PostContext).actions;
+    const [searchType, setSearchType] = useState("writer");
+    const { setPost, setCurrentPage, setTotalLength, setWord, setType } = useContext(PostContext).actions;
 
     const navItems = [
         { path: '/home', img: home, title: '홈' },
@@ -34,42 +35,42 @@ const Header = () => {
     )
 
     const handleSearchButtonClick = () => {
-        const searchType = document.getElementsByName('search');
+        setWord(searchWord);
+        async function searchPost() {
+            try {
+                const res = await getPosts(1, searchWord, searchType);
 
-        searchType.forEach(async (node) => {
-            if (node.checked) {
-                try {
-                    const res = await getPosts(1, searchWord, node.id);
-                    console.log(res.data);
-                    setPost(res.data);
-                    setCurrentPage(1);
-                    setTotalLength(res.data.length);
-                } catch (error) {
-                    console.log('검색 실패!')
-                    console.log(error);
-                }
+                setCurrentPage(1);
+                setTotalLength(res.data.length);
+                setPost(res.data);
+            } catch (error) {
+                console.error(error);
             }
-        })
+        }
+        searchPost();
     }
 
     const handleChange = (e) => {
         setSearchWord(e.target.value);
     }
 
+    const handleRadioClick = (e) => {
+        setSearchType(e.target.id);
+        setType(e.target.id);
+    }
+
     const handleLogoutClick = () => {
-        console.log('logout');
         axios
             .post("http://web.expertly.info:8012/api/auth/logout", {
             }, { withCredentials: true })
             .then((res) => {
-                console.log('로그아웃 성공!');
                 setUserid("");
                 sessionStorage.clear();
 
                 navigate("/");
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
             });
     };
 
@@ -79,9 +80,9 @@ const Header = () => {
                 <img className="logo-img" src={instagram_logo} alt="logo-img" />
                 <div className="header-radio">
                     <div >
-                        <input type="radio" name="search" id="writer" defaultChecked="checked" /><label htmlFor="writer">작성자</label>
-                        <input type="radio" name="search" id="post" /><label htmlFor="post">게시글</label>
-                        <input type="radio" name="search" id="hashtag" /><label htmlFor="hashtag">해시태그</label>
+                        <input type="radio" name="search" id="writer" defaultChecked="checked" onClick={handleRadioClick} /><label htmlFor="writer">작성자</label>
+                        <input type="radio" name="search" id="post" onClick={handleRadioClick} /><label htmlFor="post" >게시글</label>
+                        <input type="radio" name="search" id="hashtag" onClick={handleRadioClick} /><label htmlFor="hashtag" >해시태그</label>
                         <div>
                             <input type="text" className="header-search" value={searchWord} onChange={handleChange} placeholder="검색어를 입력하세요" />
                             <button onClick={handleSearchButtonClick} className="header-search-button">검색</button>

@@ -36,12 +36,10 @@ const Index = () => {
       .then((res) => {
         const { status } = res;
         if (status === 200) {
-          console.log("가입 성공!");
           navigate("/");
         }
       })
       .catch((error) => {
-        console.log(error.response.data);
         error.response.data === "email" ? setDuplicateInput("이메일") : setDuplicateInput("사용자 이름")
       });
   };

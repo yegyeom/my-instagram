@@ -22,8 +22,7 @@ const Edit = () => {
                 setContent(res.data[postId - 1].content);
                 setImg(res.data[postId - 1].Images.map(image => { return { ...image, origin: true } }));
             } catch (error) {
-                console.log('정보 불러오기 실패');
-                console.log(error);
+                console.error(error);
             }
         }
         fetchPostInfo();
@@ -53,10 +52,9 @@ const Edit = () => {
             }
 
             await modifyPost({ postId, content, newImagePaths, remainImageId });
-            console.log('업로드 성공!');
             navigate('/home');
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 

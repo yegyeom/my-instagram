@@ -15,8 +15,7 @@ const Follow = () => {
                 const followingIdList = res.data.map((item) => item.followingId);
                 setFollowingList(followingIdList);
             } catch (error) {
-                console.log('목록 불러오기 실패');
-                console.log(error);
+                console.error(error);
             }
         }
 
@@ -35,8 +34,7 @@ const Follow = () => {
                     return newFollowingList;
                 });
             } catch (error) {
-                console.log('팔로잉 실패!');
-                console.log(error);
+                console.error(error);
             }
         }
     };
@@ -58,8 +56,7 @@ const Follow = () => {
                     return newFollowingList;
                 });
             } catch (error) {
-                console.log('언팔로우 실패!');
-                console.log(error);
+                console.error(error);
             }
         }
     };
@@ -88,7 +85,7 @@ const Follow = () => {
                 const res = await getUserList();
                 setUsers(res.data);
             } catch (error) {
-                console.log(error);
+                console.error(error);
             }
         }
 

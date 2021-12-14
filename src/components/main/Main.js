@@ -21,8 +21,6 @@ const Main = () => {
   };
 
   const handleComplete = () => {
-    console.log("로그인 버튼 클릭");
-
     axios
       .post("http://web.expertly.info:8012/api/auth/login", {
         userId,
@@ -32,8 +30,6 @@ const Main = () => {
         const { status } = res;
 
         if (status === 200) {
-          console.log("로그인 성공!");
-
           sessionStorage.setItem('id', res.data.id);
           sessionStorage.setItem('userId', res.data.userId);
           setId(res.data.id);
@@ -43,9 +39,8 @@ const Main = () => {
         }
       })
       .catch((error) => {
-        console.log("로그인 실패!");
+        console.error(error);
         setWarningText(error.response.data.message);
-        console.log(error.response.data.message);
         clearInput(error.response.data.num);
       });
   };

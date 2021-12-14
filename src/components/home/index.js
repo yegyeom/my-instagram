@@ -6,8 +6,8 @@ import { getPosts } from '../../api/post';
 import PostContext from '../../contexts/post';
 
 const Index = () => {
-    const { setPost, setCurrentPage, setTotalLength } = useContext(PostContext).actions;
-    const { post, currentPage, totalLength } = useContext(PostContext).state;
+    const { init, setPost, setCurrentPage, setTotalLength } = useContext(PostContext).actions;
+    const { post, currentPage, totalLength, type, word } = useContext(PostContext).state;
     const [postPerPage] = useState(9); //페이지당 포스트 개수
 
     useEffect(() => {
@@ -16,8 +16,7 @@ const Index = () => {
                 const res = await getPosts();
                 setTotalLength(res.data.length);
             } catch (error) {
-                console.log('목록 불러오기 실패 1');
-                console.log(error);
+                console.error(error);
             }
         }
 
@@ -25,18 +24,28 @@ const Index = () => {
     }, [setTotalLength]);
 
     useEffect(() => {
+        setPost(post);
+    }, [post, setPost]);
+
+    useEffect(() => {
         async function fetchPostList() {
             try {
-                const res = await getPosts(currentPage);
+                const res = await getPosts(currentPage, word, type);
                 setPost(res.data);
             } catch (error) {
-                console.log('목록 불러오기 실패 2');
-                console.log(error);
+                console.error(error);
             }
         }
 
         fetchPostList();
-    }, [setPost, currentPage]);
+        setPost(post);
+    }, [currentPage]);
+
+    useEffect(() => {
+        return () => {
+            init();
+        }
+    }, []);
 
     const handlePaginationChange = (page) => {
         setCurrentPage(page);

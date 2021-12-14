@@ -28,7 +28,7 @@ const Page = () => {
           <Route path="/edit" element={<Edit />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/follow" element={<Follow />} />
-          <Route path="/msg" element={<Msg />} />
+          <Route path="/msg" element={<Msg />} />)
         </Routes>
       </BrowserRouter>
     </>

@@ -15,8 +15,7 @@ const Profile = () => {
                 const res = await getFollowingList();
                 setFollowingCount(res.data.length);
             } catch (error) {
-                console.log('목록 불러오기 실패');
-                console.log(error);
+                console.error(error);
             }
         }
 
@@ -29,8 +28,7 @@ const Profile = () => {
                 const res = await getFollowerList();
                 setFollowerCount(res.data.length);
             } catch (error) {
-                console.log('목록 불러오기 실패');
-                console.log(error);
+                console.error(error);
             }
         }
 
