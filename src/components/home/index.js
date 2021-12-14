@@ -1,19 +1,19 @@
 import Post from './Post';
 import Paging from './Paging';
 import Header from './Header';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { getPosts } from '../../api/post';
+import PostContext from '../../contexts/post';
 
 const Index = () => {
-    const [totalLength, setTotalLength] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1); //현재 페이지
+    const { setPost, setCurrentPage, setTotalLength } = useContext(PostContext).actions;
+    const { post, currentPage, totalLength } = useContext(PostContext).state;
     const [postPerPage] = useState(9); //페이지당 포스트 개수
-    const [postList, setPostList] = useState([]);
 
     useEffect(() => {
         async function fetchLength() {
             try {
-                const res = await getPosts(0);
+                const res = await getPosts();
                 setTotalLength(res.data.length);
             } catch (error) {
                 console.log('목록 불러오기 실패 1');
@@ -22,13 +22,13 @@ const Index = () => {
         }
 
         fetchLength();
-    }, []);
+    }, [setTotalLength]);
 
     useEffect(() => {
         async function fetchPostList() {
             try {
                 const res = await getPosts(currentPage);
-                setPostList(res.data);
+                setPost(res.data);
             } catch (error) {
                 console.log('목록 불러오기 실패 2');
                 console.log(error);
@@ -36,7 +36,7 @@ const Index = () => {
         }
 
         fetchPostList();
-    }, [currentPage]);
+    }, [setPost, currentPage]);
 
     const handlePaginationChange = (page) => {
         setCurrentPage(page);
@@ -46,7 +46,7 @@ const Index = () => {
         <>
             <div className="home-layout">
                 <Header />
-                <Post pagePostList={postList} />
+                <Post pagePostList={post} />
                 <Paging currentPage={currentPage} onChange={handlePaginationChange} totalLength={totalLength} postPerPage={postPerPage} />
             </div>
         </>

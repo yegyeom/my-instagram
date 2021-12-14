@@ -8,12 +8,16 @@ import msg from '../../styles/images/msg.png';
 import logout from '../../styles/images/logout.png';
 import axios from 'axios';
 import { useNavigate } from "react-router";
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import UserContext from '../../contexts/users';
+import PostContext from "../../contexts/post";
+import { getPosts } from "../../api/post";
 
 const Header = () => {
     const navigate = useNavigate();
     const { setUserid } = useContext(UserContext).actions;
+    const [searchWord, setSearchWord] = useState("");
+    const { setPost, setCurrentPage, setTotalLength } = useContext(PostContext).actions;
 
     const navItems = [
         { path: '/home', img: home, title: '홈' },
@@ -29,7 +33,30 @@ const Header = () => {
         </Link>
     )
 
-    const handleClick = () => {
+    const handleSearchButtonClick = () => {
+        const searchType = document.getElementsByName('search');
+
+        searchType.forEach(async (node) => {
+            if (node.checked) {
+                try {
+                    const res = await getPosts(1, searchWord, node.id);
+                    console.log(res.data);
+                    setPost(res.data);
+                    setCurrentPage(1);
+                    setTotalLength(res.data.length);
+                } catch (error) {
+                    console.log('검색 실패!')
+                    console.log(error);
+                }
+            }
+        })
+    }
+
+    const handleChange = (e) => {
+        setSearchWord(e.target.value);
+    }
+
+    const handleLogoutClick = () => {
         console.log('logout');
         axios
             .post("http://web.expertly.info:8012/api/auth/logout", {
@@ -51,16 +78,19 @@ const Header = () => {
             <div className="header-layout">
                 <img className="logo-img" src={instagram_logo} alt="logo-img" />
                 <div className="header-radio">
-                    <form method="post">
-                        <input type="radio" name="search" id="writer" /><label htmlFor="writer">작성자</label>
+                    <div >
+                        <input type="radio" name="search" id="writer" defaultChecked="checked" /><label htmlFor="writer">작성자</label>
                         <input type="radio" name="search" id="post" /><label htmlFor="post">게시글</label>
                         <input type="radio" name="search" id="hashtag" /><label htmlFor="hashtag">해시태그</label>
-                        <input type="text" className="header-search" placeholder="검색어를 입력하세요" />
-                    </form>
+                        <div>
+                            <input type="text" className="header-search" value={searchWord} onChange={handleChange} placeholder="검색어를 입력하세요" />
+                            <button onClick={handleSearchButtonClick} className="header-search-button">검색</button>
+                        </div>
+                    </div>
                 </div>
                 <div className="header-icons">
                     {navList}
-                    <img type="submit" onClick={handleClick} className="header-icon" src={logout} alt="header-icon" />
+                    <img type="submit" onClick={handleLogoutClick} className="header-icon" src={logout} alt="header-icon" />
                 </div>
             </div>
         </div>
