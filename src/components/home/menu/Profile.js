@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import Header from "./Header";
-import UserContext from "../../contexts/users";
-import { getTodayDateString } from '../../utils/date'
-import { getFollowingList, getFollowerList } from "../../api/user";
+import Header from "../Header";
+import UserContext from "../../../contexts/users";
+import { getTodayDateString } from '../../../utils/date'
+import { getFollowingList, getFollowerList } from "../../../api/user";
 
 const Profile = () => {
     const { userId } = useContext(UserContext).state;

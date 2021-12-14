@@ -8,7 +8,7 @@ import PostContext from '../../contexts/post';
 const Index = () => {
     const { init, setPost, setCurrentPage, setTotalLength } = useContext(PostContext).actions;
     const { post, currentPage, totalLength, type, word } = useContext(PostContext).state;
-    const [postPerPage] = useState(9); //페이지당 포스트 개수
+    const [postPerPage] = useState(9);
 
     useEffect(() => {
         async function fetchLength() {

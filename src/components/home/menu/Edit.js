@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router";
-import Header from "./Header";
+import Header from "../Header";
 import { useEffect, useState } from 'react';
-import { getPosts, modifyPostImg, modifyPost } from '../../api/post';
+import { getPosts, modifyPostImg, modifyPost } from '../../../api/post';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation } from "swiper";
 

@@ -1,7 +1,7 @@
-import Header from "./Header";
+import Header from "../Header";
 import { useEffect, useState, useContext } from "react";
-import UserContext from "../../contexts/users";
-import { getUserList, getFollowingList, postFollow, postUnFollow } from "../../api/user";
+import UserContext from "../../../contexts/users";
+import { getUserList, getFollowingList, postFollow, postUnFollow } from "../../../api/user";
 
 const Follow = () => {
     const { userId } = useContext(UserContext).state;

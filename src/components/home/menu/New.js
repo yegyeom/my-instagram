@@ -1,7 +1,7 @@
-import Header from "./Header";
+import Header from "../Header";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { postImg, post } from "../../api/post";
+import { postImg, post } from "../../../api/post";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation } from "swiper";
 
@@ -17,9 +17,13 @@ const New = () => {
 
     const handleChange = (e) => {
         const { files, value } = e.target;
-        setPreview([...files]);
-        setImg([...files]);
-        setInputValue(files.length > 1 ? `${files.length}장의 사진이 선택되었습니다.` : value);
+        if (files.length <= 5) {
+            setPreview([...files]);
+            setImg([...files]);
+            setInputValue(files.length > 1 ? `${files.length}장의 사진이 선택되었습니다.` : value);
+        } else {
+            alert('등록 가능한 사진 개수는 최대 5개입니다!')
+        }
     }
 
     const handleButtonClick = async () => {
